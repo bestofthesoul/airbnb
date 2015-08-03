@@ -1,6 +1,9 @@
-class Tag < ActiveRecord::Base
-  has_many :posttags
-  has_many :posts, through: :posttags
 
-   validates :name, :presence => true, :uniqueness => true
+class Tag < ActiveRecord::Base
+  
+  has_many :propertytags
+  has_many :properties, through: :propertytags
+
+   
+  validates :name, :presence => true, :uniqueness => true
 end

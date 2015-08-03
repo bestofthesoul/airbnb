@@ -1,0 +1,118 @@
+<!-- ERROR MESSAGING -->
+<center><b>Message to User (<%= @user.email %>)</b></center>
+<% if !@msg.nil? %>
+<center><b><%= @msg %></b></center><br>
+<% end %>
+<br>
+
+<!--LOG OUT ACCOUNT  -->
+	  <form action="/users/logout" method="post">
+		<input type="submit" value="Log out!">
+	  </form><br>
+
+	<!--EDIT ACCOUNT DETAILS  -->
+	  <form action="/users/<%= @user.id %>/edit" method="get">
+	  	<input type="submit" value="Edit account">
+	  </form><br>
+
+	<!--DELETE ACCOUNT  -->
+		<form action= "/users/<%= @user.id%>" method= "post">
+			<input  type="hidden" name="_method" value="delete">
+			<input type= "submit" value="Delete Acc!">
+		</form>
+		
+<!-- CREATE NEW PROPERTY -->
+<div class="container">
+	<h4>CREATE NEW PROPERTY:</h4>
+		<form action="/users/<%= @user.id %>/properties/create" method="post">
+			<textarea type="text" name="property" rows ="5" cols="60" placeholder ="list one property here"></textarea>
+			
+			<br><br>
+			<input text ="text" name="tags" placeholder ="Any TAG?">
+				<label for ="tags"> (** RMBR to separate added tags via comma ",")</label>
+				<br><br>
+			<input type="submit" value="Post">
+		</form>
+
+<br><br><br>	
+
+	<!-- MY POSTED STATUS SECTION -->
+<% if @user.properties.nil? %>
+<% else %>
+
+	<h4>MY PROPERTY LISTING:</h4>
+	<p>(To Update Your OWN Property, click on it)</p>
+		<table border="1" style="width:100%">
+		<!-- HEADER  -->
+			<tr>
+			<th>Properties:</th>
+			</tr>
+
+			<!-- 2nd ROW ONWARDS -->
+			<% @user.properties.order("id ASC").each do |property| %>
+			<tr>
+				<td>
+				<a href="/users/<%= @user.id %>/properties/<%= property.id %>"><%= property.property %></a>
+				</td>
+			</tr>
+			<% end %>
+		</table>
+<%end%>
+
+<br>
+
+
+<form action="/users/<%= @user.id %>/bookings" method="get">
+<input type="submit" value="View Bookings">
+</form><br>
+
+
+
+<br><br><br>	
+
+	<!-- all properties -->
+
+	<h4>ALL PROPERTIES LISTING:</h4>
+<p>(To Book Property, click on it, except yours of course...)</p>
+	<table border="1" style="width:100%">
+		<!-- Header -->
+		<tr>
+		<th>PROPERTIES</th>
+
+
+		</tr>
+		<!-- #2nd row onwards -->
+
+		<% @properties.each do |property| %>
+		<tr>
+			<td>
+			<a href="/users/<%= @user.id %>/properties/<%= property.id %>"><%= property.property %></a> 
+			</td>
+
+	
+		</tr>
+		<%end%>
+	</table>
+
+<br><br><br>
+	<!-- LISTED TAGS -->
+
+	<h4>TAGS:</h4>
+	<table border="1" style="width:100%">
+
+		<% @tags.each do |tag| %>
+			<!-- <ol> -->
+				<li>
+					<a href="/users/<%= @user.id %>/tags/<%= tag.id %>/show"><%= tag.name %></a>
+				</li>
+			<!-- </ol> -->
+		<% end %>
+
+	</table>
+
+
+
+
+
+
+</div >

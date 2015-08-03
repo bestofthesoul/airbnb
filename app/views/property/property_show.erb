@@ -1,0 +1,72 @@
+<!-- ERROR MESSAGING -->
+<center><b>Message to User (<%= @user.email %>)</b></center>
+<% if !@msg.nil? %>
+	<center><b><%= @msg %></b></center><br>
+<% end %>
+
+<br>
+
+
+
+<div class="container">
+	<h2>Hi, <%=@user.email%></h2>
+
+	<h3>Property: </h3>
+	<p><%= @property.property %></p>
+
+
+<!-- # if I m viewing own properties, i can edit n delete it -->
+
+	<% if @property.user.id == session[:id] %>
+		<!-- EDIT PROPERTY -->
+		<form action="/users/<%= @user.id %>/properties/<%= @property.id %>/edit">
+			<input type="submit" value="Edit Property">
+		</form>
+<br>
+		<!-- DELETE PROPERTY -->
+		<form action= "/users/<%= @user.id%>/properties/<%= @property.id %>" method= "post">
+	    	<input name="_method" type="hidden" value="delete">
+	    	<input type= "submit" value="Delete Property">
+		 </form>
+	<% else %>
+<!-- nth happen -->
+	<% end %>
+
+
+<br>
+<!-- if i m viewing own properties, I CANNOT BOOK IT -->
+<!-- #FOR BOOK BUTTON -->
+	<% if @property.user.id == session[:id] %>
+	<!-- no book button -->
+	<% else %>
+		<% if @checkbook.nil? %>  
+		<!-- NOT YET BOOK-->
+			<form action="/users/<%= @user.id %>/properties/<%= @property.id %>/book" method="post">
+	    	<input type="submit" value="BOOK">
+			</form>
+
+		<% else %>
+
+			<form action="/users/<%= @user.id %>/properties/<%= @property.id %>/unbook" method="post">
+	    	<input type="submit" value="UNBOOK">
+			</form>	
+		<% end %>
+	<%end%>
+
+
+	 <p><b>Total Bookings for this Property: <%= @book.count %></b></p>
+
+<br>
+
+
+
+
+<!--LOG OUT ACCOUNT  -->
+
+  <form action="/users/logout" method="post">
+	<input type="submit" value="Log out!">
+  </form>
+
+<br>
+
+<!-- back to home -

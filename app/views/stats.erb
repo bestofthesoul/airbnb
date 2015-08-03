@@ -1,0 +1,5 @@
+
+<h4>MY BOOKED PROPERTIES</h4>
+<% @bookeduser.bookedproperties.order("id ASC").each do |property| %>
+<%= property.property %>
+<% end %>

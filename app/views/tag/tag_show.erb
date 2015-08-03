@@ -1,0 +1,32 @@
+<!-- ERROR MESSAGING -->
+<center><b>Message to User (<%= @user.email %>)</b></center>
+<% if !@msg.nil? %>
+  <center><b><%= @msg %></b></center><br>
+<% end %>
+
+<br>
+
+
+
+<div class="container">
+  <h2>Properties Listings for TAG: <%= @tag.name%></h2>
+
+  <table border="1" style="width:100%">
+<!-- HEADER  -->
+    <tr>
+      <th>Properties</th>
+    </tr>
+
+<!-- 2nd ROW ONWARDS -->
+    <% @tag.properties.each do |property| %>
+      <tr>
+        <td>
+            <a href="/users/<%= @user.id %>/properties/<%= property.id %>"><%= property.property %></a>
+        </td>
+      </tr>
+      <% end %>
+    
+  </table>
+
+</div>
+

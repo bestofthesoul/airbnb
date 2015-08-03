@@ -1,0 +1,27 @@
+
+<!-- ERROR MESSAGING -->
+<center><b>Message to User (<%= @user.email %>)</b></center>
+<% if !@msg.nil? %>
+	<center><b><%= @msg %></b></center><br>
+<% end %>
+
+<br>
+
+
+
+<div class="container">
+	<h2>EDIT PROPERTIES:</h2>
+	<form action="/users/<%= @user.id %>/properties/<%= @property.id %>/edit" method="post">
+		<input type="hidden" name="_method" value="put">
+		<textarea type="text" name="property" rows = "5" cols="60"><%= @property.property %></textarea>
+		<br><br>
+		<h5>Any TAG?</h5>
+		
+  
+		<input type="text" name="tags" placeholder="new property tags">
+
+		<label for ="tags"> (** RMBR to separate added tags via comma ",")</label>
+		<input type="submit" value="Post">
+	</form>
+</div>
+
