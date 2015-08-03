@@ -7,8 +7,13 @@ require 'byebug'
 
 
 #VIEW BOOKINGS
-get 'users/:id/bookings' do
-@bookeduser = Book.find_by(bookeduser_id: params[:id])
+get '/users/:id/bookings' do
+	@user = User.find(params[:id])
+
+# @book = Book.find_by(user_id: params[:id])
+
+@bookings = @user.books
+# byebug
 erb :stats 
 end
 
@@ -47,10 +52,10 @@ get '/users/:id/properties/:property_id' do
 	@user = User.find(params[:id])
 	@property = Property.find(params[:property_id])
 
-	@checkbook = Book.find_by(bookeduser_id: params[:id],bookedproperty_id: params[:property_id])
+	@checkbook = Book.find_by(user_id: params[:id],property_id: params[:property_id])
 
 	# books belong to EACH property
-	@book = Book.where(bookedproperty_id: params[:property_id]) 
+	@book = Book.where(property_id: params[:property_id]) 
 
 	erb :"property/property_show"
 end
@@ -114,14 +119,14 @@ end
 #BOOK OR UNBOOK
 
 post '/users/:id/properties/:property_id/book' do
-	@book = Book.create(bookeduser_id: params[:id], bookedproperty_id: params[:property_id])
-	redirect to "/users/#{@book.bookeduser_id}/properties/#{@book.bookedproperty_id}"
+	@book = Book.create(user_id: params[:id], property_id: params[:property_id])
+	redirect to "/users/#{@book.user_id}/properties/#{@book.property_id}"
 end
 
 post'/users/:id/properties/:property_id/unbook' do
-  @book = Book.find_by(bookedproperty_id: params[:property_id]) # find by property NOT by user
+  @book = Book.find_by(property_id: params[:property_id]) # find by property NOT by user
   @book.destroy
-  redirect to "/users/#{@book.bookeduser_id}/properties/#{@book.bookedproperty_id}"
+  redirect to "/users/#{@book.user_id}/properties/#{@book.property_id}"
 end
 
 

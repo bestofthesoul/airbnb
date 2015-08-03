@@ -2,8 +2,8 @@ class CreateBooks < ActiveRecord::Migration
   def change
 
     create_table  :books do |x|
-		x.integer :bookeduser_id
-		x.integer :bookedproperty_id
+		x.integer :user_id
+		x.integer :property_id
 		x.timestamps  null: false
     end
     

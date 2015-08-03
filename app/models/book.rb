@@ -1,7 +1,7 @@
 class Book < ActiveRecord::Base
 	
-	belongs_to :boookedproperty
+	belongs_to :property
 	# has_many :users
-	belongs_to :boookeduser
+	belongs_to :user
 
 end
